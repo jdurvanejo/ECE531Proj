@@ -152,7 +152,7 @@ router.get("/", function (req, res, next) {
             ": " +
             rows["time"] +
             " " +
-            rows["temp"] +
+            rows["setpt"] +
             "\r\n"
          
             //rows + "\r\n"
@@ -194,8 +194,8 @@ router.post("/update/time/:id", (req, res, next) => {
 
             ////////////////Dont use this///////////////////
             sql =
-            "SELECT * FROM temperatures WHERE time = '" +
-            req.body.time /*+
+            "SELECT * FROM temperatures WHERE id = '" +
+            id + /*+
             "' AND temp = '" +
             req.body.temp +*/
             "'";
@@ -312,7 +312,7 @@ router.post("/logging", (req, res, next) => {
 });
 
 
-
+/*
 router.post("/", (req, res, next) => {
   var conn = mysql.createConnection({
     host: "jasondatabase.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
@@ -350,6 +350,6 @@ router.post("/", (req, res, next) => {
     });
   });
 });
-
+*/
 
 module.exports = router;
