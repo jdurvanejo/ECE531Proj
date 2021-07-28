@@ -18,7 +18,7 @@ router.get("/delete/:id", (req, res, next) => {
   else {
     conn.connect((err) => {
       if (err) throw err;
-      sql = "DELETE FROM schedule WHERE id ='" + id + "'";
+      sql = "DELETE FROM temperatures WHERE id ='" + id + "'";
       var rows;
       conn.query(sql, (err, result) => {
         //if (err) res.send("\r\n There is no record with that value\r\n");
@@ -42,7 +42,7 @@ router.get("/delete", (req, res, next) => {
 
   conn.connect((err) => {
     if (err) throw err;
-    sql = "DELETE FROM schedule";
+      sql = "DELETE FROM temperatures";
     var rows;
     conn.query(sql, (err, result) => {
       if (err) throw err;
@@ -68,7 +68,7 @@ router.get("/:id", function (req, res, next) {
   else {
     conn.connect((err) => {
       if (err) throw err;
-      sql = "SELECT * FROM schedule WHERE id = '" + id + "'";
+        sql = "SELECT * FROM temperatures WHERE id = '" + id + "'";
       var rows;
       conn.query(sql, (err, result) => {
         if (err) throw err;
@@ -79,7 +79,7 @@ router.get("/:id", function (req, res, next) {
           /* postTitle = rows['title'];
       postBody = rows['body']; */
           res.send(
-            "\r\n" + id + ": " + rows["day"] + " " + rows["time"] + "\r\n"
+            "\r\n" + id + ": " + rows["time"] + " " + rows["temp"] + "\r\n"
           );
           } //else res.send("\r\n There's currently no data :(\r\n");
         else res.send("\r\n The database is currently empty \r\n");
@@ -100,7 +100,7 @@ router.get("/", function (req, res, next) {
   });
   conn.connect((err) => {
     if (err) throw err;
-    sql = "SELECT * FROM schedule";
+      sql = "SELECT * FROM temperatures";
     var rows;
     conn.query(sql, (err, result) => {
       if (err) throw err;
@@ -112,9 +112,9 @@ router.get("/", function (req, res, next) {
           "\r\nThe most recent entry in the database is:\r\n" +
             rows["id"] +
             ": " +
-            rows["day"] +
-            " " +
             rows["time"] +
+            " " +
+            rows["temp"] +
             "\r\n"
         );
       } else res.send("\r\nThe database is currently empty \r\n");
@@ -141,8 +141,8 @@ router.post("/put/:id", (req, res, next) => {
             if (err) throw err;
 
             var sql =
-                'UPDATE schedule SET day = ' + req.body.day + ' WHERE ID = ' + id;
-                //'UPDATE schedule SET time = ' + req.body.time + ' WHERE ID = ' + id;
+                'UPDATE temperatures SET time = ' + req.body.time + ' WHERE ID = ' + id;
+                //'UPDATE temperatures SET temp = ' + req.body.temp + ' WHERE ID = ' + id;
                 //'","' + ' SET time = ' + req.body.time + 'WHERE ID = ' + id;
             conn.query(sql, (err, result) => {
                 if (err) throw err;
@@ -152,10 +152,10 @@ router.post("/put/:id", (req, res, next) => {
 
             ////////////////Dont use this///////////////////
             sql =
-            "SELECT * FROM schedule WHERE day = '" +
-            req.body.day +
-            "' AND time = '" +
+            "SELECT * FROM temperatures WHERE time = '" +
             req.body.time +
+            "' AND temp = '" +
+            req.body.temp +
             "'";
             var rows;
             conn.query(sql, (err, result) => {
@@ -183,10 +183,10 @@ router.post("/", (req, res, next) => {
   conn.connect((err) => {
     if (err) throw err + "\r\n dadgum, POST didn't work this time boi!";
     var sql =
-      'INSERT INTO schedule(day, time) VALUES("' +
-      req.body.day +
-      '","' +
+      'INSERT INTO temperatures(time, temp) VALUES("' +
       req.body.time +
+      '","' +
+      req.body.temp +
       '")';
     conn.query(sql, (err, result) => {
       if (err) throw err;
@@ -194,10 +194,10 @@ router.post("/", (req, res, next) => {
     });
 
     sql =
-      "SELECT * FROM schedule WHERE day = '" +
-      req.body.day +
-      "' AND time = '" +
+      "SELECT * FROM temperatures WHERE time = '" +
       req.body.time +
+      "' AND temp = '" +
+      req.body.temp +
       "'";
     var rows;
     conn.query(sql, (err, result) => {
