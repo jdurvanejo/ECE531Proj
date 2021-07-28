@@ -174,7 +174,7 @@ router.post("/put/:id", (req, res, next) => {
 
 
 
-//for testing to log database
+//sends current state to log database
 router.post("/logging", (req, res, next) => {
     var conn = mysql.createConnection({
         host: "jasondatabase.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
