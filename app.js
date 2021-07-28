@@ -6,9 +6,9 @@ var logger = require('morgan');
 var mysql = require('mysql');
 
 var connection = mysql.createConnection({
-    host      : 'jasonurvanejo.c7llj8gpbiqw.us-west-1.rds.amazonaws.com',
-    user      : 'jasonurvanejo',
-    password  : 'jasonurvanejo',
+    host      : 'jasondatabase.c7llj8gpbiqw.us-west-1.rds.amazonaws.com',
+    user      : 'jasondatabase',
+    password  : 'jasondatabase',
     port      : '3306'
 });
 

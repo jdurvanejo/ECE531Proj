@@ -5,9 +5,9 @@ var mysql = require("mysql");
 
 router.get("/delete/:id", (req, res, next) => {
   var conn = mysql.createConnection({
-    host: "jasonurvanejo.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
-    user: "jasonurvanejo",
-    password: "jasonurvanejo",
+    host: "jasondatabase.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
+    user: "jasondatabase",
+    password: "jasondatabase",
     database: "thermo",
   });
 
@@ -34,9 +34,9 @@ router.get("/delete/:id", (req, res, next) => {
 
 router.get("/delete", (req, res, next) => {
   var conn = mysql.createConnection({
-    host: "jasonurvanejo.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
-    user: "jasonurvanejo",
-    password: "jasonurvanejo",
+    host: "jasondatabase.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
+    user: "jasondatabase",
+    password: "jasondatabase",
     database: "thermo",
   });
 
@@ -54,9 +54,9 @@ router.get("/delete", (req, res, next) => {
 
 router.get("/:id", function (req, res, next) {
   var conn = mysql.createConnection({
-    host: "jasonurvanejo.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
-    user: "jasonurvanejo",
-    password: "jasonurvanejo",
+    host: "jasondatabase.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
+    user: "jasondatabase",
+    password: "jasondatabase",
     database: "thermo",
   });
 
@@ -93,9 +93,9 @@ router.get("/:id", function (req, res, next) {
 
 router.get("/", function (req, res, next) {
   var conn = mysql.createConnection({
-    host: "jasonurvanejo.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
-    user: "jasonurvanejo",
-    password: "jasonurvanejo",
+    host: "jasondatabase.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
+    user: "jasondatabase",
+    password: "jasondatabase",
     database: "thermo",
   });
   conn.connect((err) => {
@@ -174,9 +174,9 @@ router.post("/put/:id", (req, res, next) => {
 
 router.post("/", (req, res, next) => {
   var conn = mysql.createConnection({
-    host: "jasonurvanejo.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
-    user: "jasonurvanejo",
-    password: "jasonurvanejo",
+    host: "jasondatabase.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
+    user: "jasondatabase",
+    password: "jasondatabase",
     database: "thermo",
   });
 
