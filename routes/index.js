@@ -172,6 +172,57 @@ router.post("/put/:id", (req, res, next) => {
 });
 */
 
+
+
+//for testing to log database
+router.post("/logging", (req, res, next) => {
+    var conn = mysql.createConnection({
+        host: "jasondatabase.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
+        user: "jasondatabase",
+        password: "jasondatabase",
+        database: "thermostat",
+    });
+
+    conn.connect((err) => {
+        if (err) throw err + "\r\n dadgum, POST didn't work this time boi!";
+        var sql =
+            'INSERT INTO logging(time, heater, setpt, actual) VALUES("' +
+            req.body.time +
+            '","' +
+            req.body.heater +
+            '","' +
+            req.body.setpt +
+            '","' +
+            req.body.actual +
+            '")';
+        conn.query(sql, (err, result) => {
+            if (err) throw err;
+            console.log("1 record inserted");
+        });
+
+        sql =
+            "SELECT * FROM logging WHERE time = '" +
+            req.body.time +
+            "' AND heater = '" +
+            req.body.heater +
+            "' AND setpt = '" +
+            req.body.setpt +
+            "' AND actual = '" +
+            req.body.actual +
+            "'";
+        var rows;
+        conn.query(sql, (err, result) => {
+            if (err) throw err;
+
+            rows = JSON.parse(JSON.stringify(result[result.length - 1]));
+
+            res.send("\r\n Success! Record inserted for id: " + rows["id"] + "\r\n");
+        });
+    });
+});
+
+
+
 router.post("/", (req, res, next) => {
   var conn = mysql.createConnection({
     host: "jasondatabase.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
