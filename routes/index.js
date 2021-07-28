@@ -244,8 +244,8 @@ router.post("/update/setpt/:id", (req, res, next) => {
 
             ////////////////Dont use this///////////////////
             sql =
-                "SELECT * FROM temperatures WHERE time = '" +
-                req.body.setpt /*+
+                "SELECT * FROM temperatures WHERE id = '" +
+                id /*+
             "' AND temp = '" +
             req.body.temp +*/
             "'";
