@@ -184,9 +184,11 @@ router.post("/update/time/:id", (req, res, next) => {
                 "UPDATE temperatures SET time = '" + req.body.time + "' WHERE ID = '" + id + "'";
                 //'UPDATE temperatures SET temp = ' + req.body.temp + ' WHERE ID = ' + id;
                 //'","' + ' SET time = ' + req.body.time + 'WHERE ID = ' + id;
+            var rows;
             conn.query(sql, (err, result) => {
                 if (err) throw err;
                 console.log("1 record modified");
+                rows = JSON.parse(JSON.stringify(result[result.length - 1]));
                 res.send("\r\n Success! Record adjusted for id: " + rows["id"] + "\r\n");
             });
 
@@ -231,8 +233,11 @@ router.post("/update/setpt/:id", (req, res, next) => {
                 "UPDATE temperatures SET setpt = '" + req.body.setpt + "' WHERE ID = '" + id + "'";
             //'UPDATE temperatures SET temp = ' + req.body.temp + ' WHERE ID = ' + id;
             //'","' + ' SET time = ' + req.body.time + 'WHERE ID = ' + id;
+            var rows;
             conn.query(sql, (err, result) => {
                 if (err) throw err;
+                rows = JSON.parse(JSON.stringify(result[result.length - 1]));
+
                 console.log("1 record modified");
                 res.send("\r\n Success! Record adjusted for id: " + rows["id"] + "\r\n");
             });
