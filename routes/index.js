@@ -146,7 +146,7 @@ router.get("/", function (req, res, next) {
       if (result != "") {
         rows = JSON.parse(JSON.stringify(result[result.length - 1]));
 
-        res.send(
+          res.send(rows);
           /*"\r\nThe most recent entry in the database is:\r\n" +
             rows["id"] +
             ": " +
@@ -155,8 +155,8 @@ router.get("/", function (req, res, next) {
             rows["temp"] +
             "\r\n"
          */
-            rows + "\r\n"
-        );
+            //rows + "\r\n"
+        //);
       } else res.send("\r\nThe database is currently empty \r\n");
     });
   });
