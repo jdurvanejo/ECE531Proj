@@ -138,7 +138,7 @@ router.get("/", function (req, res, next) {
   });
   conn.connect((err) => {
     if (err) throw err;
-      sql = "SELECT id, time, temp FROM temperatures";
+      sql = "SELECT id, time, setpt FROM temperatures";
     var rows;
     conn.query(sql, (err, result) => {
       if (err) throw err;
