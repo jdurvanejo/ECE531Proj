@@ -191,11 +191,11 @@ router.post("/update/time/:id", (req, res, next) => {
             });
 
             ////////////////Dont use this///////////////////
-            /*sql =
+            sql =
             "SELECT * FROM temperatures WHERE time = '" +
-            req.body.time +
+            req.body.time /*+
             "' AND temp = '" +
-            req.body.temp +
+            req.body.temp +*/
             "'";
             var rows;
             conn.query(sql, (err, result) => {
@@ -205,13 +205,58 @@ router.post("/update/time/:id", (req, res, next) => {
             
             res.send("\r\n Success! Record adjusted for id: " + rows["id"] + "\r\n");
             });
-            */
+            
             ///////////////////////////////////////////////
         });
     };
 });
 
+router.post("/update/setpt/:id", (req, res, next) => {
+    var conn = mysql.createConnection({
+        host: "jasondatabase.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
+        user: "jasondatabase",
+        password: "jasondatabase",
+        database: "thermostat",
+    });
 
+    var id = req.params.id;
+    id = parseInt(id);
+
+    if (isNaN(id)) res.send("\r\nThe entered ID must be an integer.\r\n");
+    else {
+        conn.connect((err) => {
+            if (err) throw err;
+
+            var sql =
+                "UPDATE temperatures SET setpt = '" + req.body.setpt + "' WHERE ID = '" + id + "'";
+            //'UPDATE temperatures SET temp = ' + req.body.temp + ' WHERE ID = ' + id;
+            //'","' + ' SET time = ' + req.body.time + 'WHERE ID = ' + id;
+            conn.query(sql, (err, result) => {
+                if (err) throw err;
+                console.log("1 record modified");
+                res.send("\r\n Success! Record adjusted for id: " + rows["id"] + "\r\n");
+            });
+
+            ////////////////Dont use this///////////////////
+            sql =
+                "SELECT * FROM temperatures WHERE time = '" +
+                req.body.setpt /*+
+            "' AND temp = '" +
+            req.body.temp +*/
+            "'";
+            var rows;
+            conn.query(sql, (err, result) => {
+                if (err) throw err;
+
+                rows = JSON.parse(JSON.stringify(result[result.length - 1]));
+
+                res.send("\r\n Success! Record adjusted for id: " + rows["id"] + "\r\n");
+            });
+
+            ///////////////////////////////////////////////
+        });
+    };
+});
 
 
 //sends current state to log database
