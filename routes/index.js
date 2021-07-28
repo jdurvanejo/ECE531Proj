@@ -52,6 +52,7 @@ router.get("/delete", (req, res, next) => {
   });
 });
 
+/* //This is the original get
 router.get("/:id", function (req, res, next) {
   var conn = mysql.createConnection({
     host: "jasondatabase.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
@@ -76,8 +77,8 @@ router.get("/:id", function (req, res, next) {
         if (result != "") {
           rows = JSON.parse(JSON.stringify(result[result.length - 1]));
 
-          /* postTitle = rows['title'];
-      postBody = rows['body']; */
+          // postTitle = rows['title'];
+      //postBody = rows['body'];
           res.send(
             "\r\n" + id + ": " + rows["time"] + " " + rows["temp"] + "\r\n"
           );
@@ -86,6 +87,43 @@ router.get("/:id", function (req, res, next) {
       });
     });
   }
+});
+*/
+
+router.get("/:id", function (req, res, next) {
+    var conn = mysql.createConnection({
+        host: "jasondatabase.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
+        user: "jasondatabase",
+        password: "jasondatabase",
+        database: "thermostat",
+    });
+
+    var id = req.params.id;
+    id = parseInt(id);
+    console.log(id);
+
+    if (isNaN(id)) res.send("\r\nThe entered ID value must be an integer.\r\n");
+    else {
+        conn.connect((err) => {
+            if (err) throw err;
+            sql = "SELECT * FROM temperatures WHERE id = '" + id + "'";
+            var rows;
+            conn.query(sql, (err, result) => {
+                if (err) throw err;
+
+                if (result != "") {
+                    rows = JSON.parse(JSON.stringify(result[result.length - 1]));
+
+                    /* postTitle = rows['title'];
+                postBody = rows['body']; */
+                    res.send(
+                        "\r\n" + id + ": " + rows["time"] + " " + rows["temp"] + "\r\n"
+                    );
+                } //else res.send("\r\n There's currently no data :(\r\n");
+                else res.send("\r\n The database is currently empty \r\n");
+            });
+        });
+    }
 });
 
 
@@ -96,7 +134,7 @@ router.get("/", function (req, res, next) {
     host: "jasondatabase.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
     user: "jasondatabase",
     password: "jasondatabase",
-    database: "thermo",
+    database: "thermostat",
   });
   conn.connect((err) => {
     if (err) throw err;
@@ -109,13 +147,15 @@ router.get("/", function (req, res, next) {
         rows = JSON.parse(JSON.stringify(result[result.length - 1]));
 
         res.send(
-          "\r\nThe most recent entry in the database is:\r\n" +
+          /*"\r\nThe most recent entry in the database is:\r\n" +
             rows["id"] +
             ": " +
             rows["time"] +
             " " +
             rows["temp"] +
             "\r\n"
+         */
+            rows + "\r\n"
         );
       } else res.send("\r\nThe database is currently empty \r\n");
     });
@@ -184,7 +224,7 @@ router.post("/logging", (req, res, next) => {
     });
 
     conn.connect((err) => {
-        if (err) throw err + "\r\n dadgum, POST didn't work this time boi!";
+        if (err) throw err + "\r\n dadgum, POST didn't work this time!";
         var sql =
             'INSERT INTO logging(time, heater, setpt, actual) VALUES("' +
             req.body.time +
