@@ -181,7 +181,7 @@ router.post("/update/time/:id", (req, res, next) => {
             if (err) throw err;
 
             var sql =
-                'UPDATE temperatures SET time = ' + req.body.time + ', WHERE ID = ' + id;
+                'UPDATE temperatures SET time = ' + req.body.time + ' WHERE ID = ' + id;
                 //'UPDATE temperatures SET temp = ' + req.body.temp + ' WHERE ID = ' + id;
                 //'","' + ' SET time = ' + req.body.time + 'WHERE ID = ' + id;
             conn.query(sql, (err, result) => {
