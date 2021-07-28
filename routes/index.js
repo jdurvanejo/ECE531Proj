@@ -166,9 +166,9 @@ router.get("/", function (req, res, next) {
 
 router.post("/update/time/:id", (req, res, next) => {
     var conn = mysql.createConnection({
-        host: "jasonurvanejo.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
-        user: "jasonurvanejo",
-        password: "jasonurvanejo",
+        host: "jasondatabase.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
+        user: "jasondatabase",
+        password: "jasondatabase",
         database: "thermostat",
     });
 
