@@ -138,7 +138,7 @@ router.get("/", function (req, res, next) {
   });
   conn.connect((err) => {
     if (err) throw err;
-      sql = "SELECT * FROM temperatures";
+      sql = "SELECT id, time, temp FROM temperatures";
     var rows;
     conn.query(sql, (err, result) => {
       if (err) throw err;
@@ -146,7 +146,7 @@ router.get("/", function (req, res, next) {
       if (result != "") {
         rows = JSON.parse(JSON.stringify(result[result.length - 1]));
 
-          res.send(rows);
+        res.send(
           /*"\r\nThe most recent entry in the database is:\r\n" +
             rows["id"] +
             ": " +
@@ -155,8 +155,8 @@ router.get("/", function (req, res, next) {
             rows["temp"] +
             "\r\n"
          */
-            //rows + "\r\n"
-        //);
+            rows + "\r\n"
+        );
       } else res.send("\r\nThe database is currently empty \r\n");
     });
   });
