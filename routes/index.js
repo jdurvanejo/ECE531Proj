@@ -138,7 +138,7 @@ router.get("/", function (req, res, next) {
   });
   conn.connect((err) => {
     if (err) throw err;
-      sql = "SELECT id, time, setpt FROM temperatures";
+      sql = "SELECT * FROM temperatures";
     var rows;
     conn.query(sql, (err, result) => {
       if (err) throw err;
@@ -147,15 +147,15 @@ router.get("/", function (req, res, next) {
         rows = JSON.parse(JSON.stringify(result[result.length - 1]));
 
         res.send(
-          /*"\r\nThe most recent entry in the database is:\r\n" +
+          "\r\nThe most recent entry in the database is:\r\n" +
             rows["id"] +
             ": " +
             rows["time"] +
             " " +
             rows["temp"] +
             "\r\n"
-         */
-            rows + "\r\n"
+         
+            //rows + "\r\n"
         );
       } else res.send("\r\nThe database is currently empty \r\n");
     });
@@ -163,13 +163,13 @@ router.get("/", function (req, res, next) {
 });
 
 
-/*
-router.post("/put/:id", (req, res, next) => {
+
+router.post("/update/time/:id", (req, res, next) => {
     var conn = mysql.createConnection({
         host: "jasonurvanejo.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
         user: "jasonurvanejo",
         password: "jasonurvanejo",
-        database: "thermo",
+        database: "thermostat",
     });
 
     var id = req.params.id;
@@ -181,7 +181,7 @@ router.post("/put/:id", (req, res, next) => {
             if (err) throw err;
 
             var sql =
-                'UPDATE temperatures SET time = ' + req.body.time + ' WHERE ID = ' + id;
+                'UPDATE temperatures SET time = ' + req.body.time + ', WHERE ID = ' + id;
                 //'UPDATE temperatures SET temp = ' + req.body.temp + ' WHERE ID = ' + id;
                 //'","' + ' SET time = ' + req.body.time + 'WHERE ID = ' + id;
             conn.query(sql, (err, result) => {
@@ -191,7 +191,7 @@ router.post("/put/:id", (req, res, next) => {
             });
 
             ////////////////Dont use this///////////////////
-            sql =
+            /*sql =
             "SELECT * FROM temperatures WHERE time = '" +
             req.body.time +
             "' AND temp = '" +
@@ -205,12 +205,12 @@ router.post("/put/:id", (req, res, next) => {
             
             res.send("\r\n Success! Record adjusted for id: " + rows["id"] + "\r\n");
             });
-            
+            */
             ///////////////////////////////////////////////
         });
     };
 });
-*/
+
 
 
 
