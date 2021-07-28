@@ -117,7 +117,7 @@ router.get("/:id", function (req, res, next) {
                     /* postTitle = rows['title'];
                 postBody = rows['body']; */
                     res.send(
-                        "\r\n" + id + ": " + rows["time"] + " " + rows["temp"] + "\r\n"
+                        "\r\n" + id + ": " + rows["time"] + " " + rows["setpt"] + "\r\n"
                     );
                 } //else res.send("\r\n There's currently no data :(\r\n");
                 else res.send("\r\n The database is currently empty \r\n");
