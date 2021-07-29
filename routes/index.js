@@ -2,6 +2,8 @@ var express = require("express");
 var router = express.Router();
 var mysql = require("mysql");
 
+const poo = mysql.createPool({})
+
 
 router.get("/delete/:id", (req, res, next) => {
   var conn = mysql.createConnection({
@@ -118,7 +120,7 @@ router.get("/:id", function (req, res, next) {
                 postBody = rows['body']; */
                     res.send(
                         //"\r\n" + id + " " + rows["time"] + " " + rows["setpt"] + "\r\n"
-                        id + " " + rows["time"] + " " + rows["setpt"] + "\r\n"
+                        id + " " + rows["time"] + " " + rows["setpt"] + "\0"
                     );
                 } //else res.send("\r\n There's currently no data :(\r\n");
                 else res.send("\r\n The database is currently empty \r\n");
