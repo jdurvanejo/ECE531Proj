@@ -2,7 +2,12 @@ var express = require("express");
 var router = express.Router();
 var mysql = require("mysql");
 
-const poo = mysql.createPool({})
+const pool = mysql.createPool({
+    host: "jasondatabase.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
+    user: "jasondatabase",
+    password: "jasondatabase",
+    database: "thermostat",
+});
 
 
 router.get("/delete/:id", (req, res, next) => {
@@ -93,20 +98,21 @@ router.get("/:id", function (req, res, next) {
 */
 
 router.get("/:id", function (req, res, next) {
-    var conn = mysql.createConnection({
+    /*var conn = mysql.createConnection({
         host: "jasondatabase.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
         user: "jasondatabase",
         password: "jasondatabase",
         database: "thermostat",
     });
-
+    */
     var id = req.params.id;
     id = parseInt(id);
     console.log(id);
 
     if (isNaN(id)) res.send("\r\nThe entered ID value must be an integer.\r\n");
     else {
-        conn.connect((err) => {
+        //conn.connect((err) => {
+        pool.getConnection((err, conn) => {
             if (err) throw err;
             sql = "SELECT * FROM temperatures WHERE id = '" + id + "'";
             var rows;
@@ -124,6 +130,7 @@ router.get("/:id", function (req, res, next) {
                     );
                 } //else res.send("\r\n There's currently no data :(\r\n");
                 else res.send("\r\n The database is currently empty \r\n");
+                conn.release();
             });
         });
     }
