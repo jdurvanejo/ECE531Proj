@@ -286,8 +286,10 @@ router.post("/logging", (req, res, next) => {
     conn.connect((err) => {
         if (err) throw err + "\r\n dadgum, POST didn't work this time!";
         var sql =
-            'INSERT INTO logs(time, heater, setpt, actual) VALUES("' +
-            req.body.time +
+            'INSERT INTO logs(hour, min, heater, setpt, actual) VALUES("' +
+            req.body.hour +
+            '","' +
+            req.body.min +
             '","' +
             req.body.heater +
             '","' +
@@ -301,8 +303,10 @@ router.post("/logging", (req, res, next) => {
         });
 
         sql =
-            "SELECT * FROM logs WHERE time = '" +
-            req.body.time +
+            "SELECT * FROM logs WHERE hour = '" +
+            req.body.hour +
+            "' AND min = '" +
+            req.body.min +
             "' AND heater = '" +
             req.body.heater +
             "' AND setpt = '" +
