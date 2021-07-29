@@ -286,7 +286,7 @@ router.post("/logging", (req, res, next) => {
     conn.connect((err) => {
         if (err) throw err + "\r\n dadgum, POST didn't work this time!";
         var sql =
-            'INSERT INTO logging(time, heater, setpt, actual) VALUES("' +
+            'INSERT INTO logs(time, heater, setpt, actual) VALUES("' +
             req.body.time +
             '","' +
             req.body.heater +
@@ -301,7 +301,7 @@ router.post("/logging", (req, res, next) => {
         });
 
         sql =
-            "SELECT * FROM logging WHERE time = '" +
+            "SELECT * FROM logs WHERE time = '" +
             req.body.time +
             "' AND heater = '" +
             req.body.heater +
