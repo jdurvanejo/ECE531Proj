@@ -276,14 +276,16 @@ router.post("/update/setpt/:id", (req, res, next) => {
 
 //sends current state to log database
 router.post("/logging", (req, res, next) => {
-    var conn = mysql.createConnection({
+    /*var conn = mysql.createConnection({
         host: "jasondatabase.c7llj8gpbiqw.us-west-1.rds.amazonaws.com",
         user: "jasondatabase",
         password: "jasondatabase",
         database: "thermostat",
     });
+    */
 
-    conn.connect((err) => {
+    //conn.connect((err) => {
+    pool.getConnection((err, conn) => {
         if (err) throw err + "\r\n dadgum, POST didn't work this time!";
         var sql =
             'INSERT INTO logs(hour, min, heater, setpt, actual) VALUES("' +
@@ -321,6 +323,7 @@ router.post("/logging", (req, res, next) => {
             rows = JSON.parse(JSON.stringify(result[result.length - 1]));
 
             res.send("\r\n Success! Record inserted for id: " + rows["id"] + "\r\n");
+            conn.release();
         });
     });
 });
