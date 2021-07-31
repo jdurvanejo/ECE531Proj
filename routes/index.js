@@ -254,11 +254,11 @@ router.post("/update/setpt/:id", (req, res, next) => {
 
             ////////////////Dont use this///////////////////
             sql =
-                "SELECT * FROM temperatures WHERE id = '" +
-                id +/*+
+                "SELECT * FROM temperatures WHERE id = " +
+                id/*+
             "' AND temp = '" +
             req.body.temp +*/
-            "'";
+            ;
             var rows;
             conn.query(sql, (err, result) => {
                 if (err) throw err;
